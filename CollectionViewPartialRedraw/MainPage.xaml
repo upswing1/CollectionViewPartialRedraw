@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CollectionViewPartialRedraw.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="DeepSkyBlue" Padding="10">
+            <VerticalStackLayout BackgroundColor="LightSkyBlue" Padding="10">
+
+
+                <Grid MinimumWidthRequest="400" Margin="10,5,10,5" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                              
+            <Grid Grid.Column="0">
+                                    
+                    <HorizontalStackLayout HorizontalOptions="Start" >
+                        <SearchBar x:Name="ObjectSearchBar" WidthRequest="200" Margin="10,0,10,0" BackgroundColor="White" 
+                           IsSpellCheckEnabled="False" Keyboard="Text" Placeholder="{TemplateBinding SearchBarPlaceholderText}" 
+                           TextChanged="OnTextChanged" />
+
+                        <BoxView   VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="30" WidthRequest="1" Color="Transparent" Margin="0,0,10,0"></BoxView>
+
+                        <ImageButton BackgroundColor="White" CornerRadius="10"
+                             Clicked="SortButton_Clicked"
+                             Command="{Binding DataCommand}"  CommandParameter="Sort"                                                                                         
+                             Source="sort_descending.png"/>
+
+                    </HorizontalStackLayout>
+                </Grid>
+                                
+                <Grid Grid.Column="1">
+                    
+                <ImageButton BackgroundColor="White" CornerRadius="10" HorizontalOptions="End"
+                             Command="{Binding DataCommand}"  CommandParameter="Add"                                                                                         
+                             Source="addition.png"/>
+                
+
+                    <Button Text="+" FontSize="Medium" BackgroundColor="Green" Margin="10,0,10,0"
+                    Clicked="AddButton_Clicked"
+                
+                CornerRadius="25" 
+                WidthRequest="45" HeightRequest="45" HorizontalOptions="End" />
+                </Grid>
+
+            </Grid>
+
+                <!--<Frame Grid.Row="1" Margin="10,0,10,10" BackgroundColor="white" CornerRadius="20" Padding="0" HasShadow="False" VerticalOptions="FillAndExpand">-->
+
+                <!--BackgroundColor="Transparent" 
+                ItemSizingStrategy="MeasureFirstItem"-->
+                <CollectionView Grid.Row="1"
+                ItemsSource="{Binding Fleets}"
+                
+                
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedItem}"
+                SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                SelectionChangedCommandParameter="{Binding .}" >
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" Padding="0" BorderColor="LightSkyBlue" BackgroundColor="White" Margin="5" HorizontalOptions="FillAndExpand" >
+                                <Grid Margin="3,0,3,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="35"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"/>
+                                        <ColumnDefinition Width="50*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="13" FontAttributes="Bold" Margin="10,5,10,0"  />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Created}" FontSize="12" FontAttributes="Italic" Margin="0,5,10,0" HorizontalOptions="EndAndExpand" />
+                                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description}" FontSize="12" FontAttributes="Italic" Margin="10,5,10,0"/>
+                                    <Rectangle Grid.Row="1" Grid.Column="1" WidthRequest="30" HeightRequest="30" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10, 10"
+                                        RadiusX="10" RadiusY="10" Fill="{Binding Color}" />
+
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.GroupFooterTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Count, StringFormat='Total records: {0:D}'}"
+                   Margin="0,0,0,10" />
+                        </DataTemplate>
+                    </CollectionView.GroupFooterTemplate>
+
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                                <Label Text="No results matched your filter."
+                           Margin="10,25,10,10"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
+                                <Label Text="Try a broader filter?"
+                           FontAttributes="Italic"
+                           FontSize="12"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <!--</Frame>-->
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
